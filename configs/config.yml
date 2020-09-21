@@ -1,0 +1,28 @@
+tnbc:
+    dataset: tnbc
+    image_dir: 'data/tnbc/train/image/'
+    mask_dir: 'data/tnbc/train/mask/'
+    val_image_dir: 'data/tnbc/val/image/'
+    val_mask_dir: 'data/tnbc/val/mask/'
+    test_dir: 'data/tnbc/test/'
+nuclei:
+    dataset: tnbc
+    image_dir: 'data/nuclei/train/image/'
+    mask_dir: 'data/nuclei/train/mask/'
+    val_image_dir: 'data/nuclei/val/image/'
+    val_mask_dir: 'data/nuclei/val/mask/'
+    test_dir: 'data/nuclei/test/'
+membrane:
+    dataset: tnbc
+    image_dir: 'data/membrane/train/image/'
+    mask_dir: 'data/membrane/train/mask/'
+    val_image_dir: 'data/membrane/val/image/'
+    val_mask_dir: 'data/membrane/val/mask/'
+    test_dir: 'data/membrane/test/'
+retinal:
+    dataset: tnbc
+    image_dir: 'data/retinal/train/image/'
+    mask_dir: 'data/retinal/train/mask/'
+    val_image_dir: 'data/retinal/val/image/'
+    val_mask_dir: 'data/retinal/val/mask/'
+    test_dir: 'data/retinal/test/'
