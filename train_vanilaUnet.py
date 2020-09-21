@@ -1,16 +1,14 @@
 import argparse
 import os
 import time
-from datetime import datetime
-from distutils.dir_util import copy_tree
-
 import imageio
 import numpy as np
 import torch
 import yaml
 from tensorboardX import SummaryWriter
 from torch.autograd import Variable
-
+from datetime import datetime
+from distutils.dir_util import copy_tree
 from data import get_loader
 from model.Unet import Unet
 from utils import get_logger, create_dir
@@ -20,25 +18,15 @@ os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 parser = argparse.ArgumentParser()
 parser.add_argument('--epoch', type=int, default=300, help='epoch number')
 parser.add_argument('--lr_gen', type=float, default=5e-4, help='learning rate')
-parser.add_argument('--lr_dis', type=float, default=1e-4, help='learning rate')
 parser.add_argument('--batchsize', type=int, default=1, help='training batch size')
 parser.add_argument('--trainsize', type=int, default=256, help='training dataset size')
 parser.add_argument('--clip', type=float, default=0.5, help='gradient clipping margin')
-parser.add_argument('--is_ResNet', type=bool, default=False, help='Unet or ResNet backbone')
 parser.add_argument('--decay_rate', type=float, default=0.1, help='decay rate of learning rate')
 parser.add_argument('--decay_epoch', type=int, default=50, help='every n epochs decay learning rate')
-parser.add_argument('-beta1_dis', type=float, default=0.5, help='beta of Adam for descriptor')
 parser.add_argument('--dataset', type=str, default='tnbc', help='nuclei or tnbc')
 opt = parser.parse_args()
 
 CE = torch.nn.BCELoss()
-
-
-def make_Dis_label(label, gts):
-    D_label = np.ones(gts.shape) * label
-    D_label = Variable(torch.FloatTensor(D_label)).cuda()
-
-    return D_label
 
 
 def dice_loss(pred_mask, true_mask):
@@ -49,9 +37,7 @@ def dice_loss(pred_mask, true_mask):
 
 def calc_loss(pred, target, bce_weight=0.2):
     bce = CE(pred, target)
-
     dice = dice_loss(pred, target)
-
     loss = bce * bce_weight + dice * (1 - bce_weight)
 
     return loss
